@@ -11,16 +11,16 @@ Regras aplicadas nesta camada:
 - Remoção de registros sem order_id (chave primária ausente)
 """
 
-import os
 import sys
 from pathlib import Path
 
-# Configurando o Python correto ANTES de importar/criar a SparkSession,
-os.environ["PYSPARK_PYTHON"] = sys.executable
-os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
+# Adicionamos a pasta 'src' ao caminho de busca de módulos do Python,
+# para podermos importar nosso módulo utilitário compartilhado a partir
+# de qualquer lugar, independente de onde o script for executado.
+sys.path.append(str(Path(__file__).resolve().parents[1]))
 
-from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, trim, lower
+from utils.spark_session import criar_spark_session
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -37,18 +37,8 @@ COLUNAS_DE_DATA = [
 ]
 
 
-def criar_spark_session() -> SparkSession:
-    """Cria e retorna a SparkSession usada por este script."""
-    return (
-        SparkSession.builder
-        .appName("SilverTransformation-Orders")
-        .master("local[*]")
-        .getOrCreate()
-    )
-
-
 def main() -> None:
-    spark = criar_spark_session()
+    spark = criar_spark_session("SilverTransformation-Orders")
 
     caminho_bronze = str(BRONZE_DIR / "orders" / "orders.parquet")
     print(f"Lendo dados da Bronze: {caminho_bronze}")
