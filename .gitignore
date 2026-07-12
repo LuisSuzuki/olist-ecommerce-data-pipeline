@@ -217,9 +217,7 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# Dados - nunca versionar dados brutos ou processados
-data/**/*.csv
-data/**/*.parquet
-data/**/*.json
-data/**/*.zip
+# Dados - nunca versionar nenhum arquivo de dado, independente do formato
+data/**
+!data/**/
 !data/**/.gitkeep
