@@ -26,6 +26,7 @@ SRC_PATH = "/opt/airflow/project/src"
     schedule=None,
     start_date=datetime(2026, 1, 1),
     catchup=False,
+    max_active_tasks=3,
     tags=["olist", "portfolio", "medallion-architecture"],
 )
 def pipeline_olist_ecommerce():
