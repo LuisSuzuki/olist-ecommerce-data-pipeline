@@ -221,3 +221,7 @@ __marimo__/
 data/**
 !data/**/
 !data/**/.gitkeep
+
+# Airflow - logs gerados em runtime nunca sao versionados
+orchestration/logs/**
+!orchestration/logs/.gitkeep
