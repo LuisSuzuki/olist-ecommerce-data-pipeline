@@ -1,0 +1,15 @@
+services:
+  postgres-dw:
+    image: postgres:16
+    container_name: olist-postgres-dw
+    environment:
+      POSTGRES_USER: olist_admin
+      POSTGRES_PASSWORD: olist_dev_password
+      POSTGRES_DB: olist_dw
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_dw_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_dw_data:
